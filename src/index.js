@@ -47,7 +47,7 @@ bot.hears(/\/random_anime/, async (ctx) => {
   });
 });
 
-bot.hears(/\/user_info_test/, async (ctx) => {
+bot.hears(/\/user_info/, async (ctx) => {
   try {
     const user = await User.findOne({
       where: { userId: ctx.update.message.from.id },
@@ -62,7 +62,7 @@ bot.hears(/\/user_info_test/, async (ctx) => {
   }
 });
 
-bot.hears(/\/song_quiz_test/, async (ctx) => {
+bot.hears(/\/song_quiz/, async (ctx) => {
   try {
     User.findOrCreate({ where: { userId: ctx.update.message.from.id } });
     const {
