@@ -1,0 +1,26 @@
+{
+  "name": "anime-bot-tg",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "lint": "eslint . --ext .js",
+    "lint-fix": "yarn lint --fix"
+  },
+  "keywords": [],
+  "author": "HobMartin",
+  "license": "ISC",
+  "dependencies": {
+    "@mattplays/aniapi": "^2.0.4",
+    "dotenv": "^16.0.0",
+    "telegraf": "^4.7.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.11.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "nodemon": "^2.0.15"
+  }
+}
