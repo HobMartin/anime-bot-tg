@@ -12,8 +12,9 @@ bot.use(session());
 
 bot.command('sync_db', async (ctx) => {
   if (ctx.from.id !== +process.env.ADMIN_ID) return;
+  const force = ctx.update.message.text.split(' ')[1] === 'force';
   try {
-    await sequelize.sync().then(() => ctx.deleteMessage(ctx.message.message_id));
+    await sequelize.sync({ force }).then(() => ctx.deleteMessage(ctx.message.message_id));
   } catch (error) {
     ctx.telegram.sendMessage(
       process.env.ADMIN_ID,
@@ -46,20 +47,25 @@ bot.hears(/\/random_anime/, async (ctx) => {
   });
 });
 
-bot.hears(/\/info/, async (ctx) => {
-  const user = await User.findOne({ userId: ctx.from.id });
-  ctx.replyWithMarkdown(
-    `*Гравець:* ${ctx.from.username}\n*Правильно вгаданих пісень:* ${user.right}\n*Кількість невгаданих пісень: *${user.wrong}`,
-  );
+bot.hears(/\/user_info/, async (ctx) => {
+  try {
+    const user = await User.findOne({
+      where: { userId: ctx.update.message.from.id },
+    });
+    ctx.replyWithHTML(
+      `<b>Гравець:</b> ${ctx.from.username}\n<b>Правильно вгаданих пісень:</b>${
+        user?.right ?? 0
+      }\n<b>Кількість невгаданих пісень: </b>${user?.wrong ?? 0}`,
+    );
+  } catch (error) {
+    ctx.replyWithHTML(`<b>Гравець:</b> ${ctx.from.username}\n<b>Ти ще не грав!</b>`);
+  }
 });
 
 bot.hears(/\/song_quiz/, async (ctx) => {
   try {
-    const user = await User.findOne({ userId: ctx.from.id });
-    if (!user) User.create({ userId: ctx.from.id });
-    const {
-      animeTitle, spotifyUrl, songUrl, answers,
-    } = await getSongQuiz();
+    User.findOrCreate({ where: { userId: ctx.update.message.from.id } });
+    const { animeTitle, spotifyUrl, songUrl, answers } = await getSongQuiz();
     // eslint-disable-next-line no-console
     console.log({ songUrl });
     ctx
@@ -95,16 +101,17 @@ bot.hears(/\/song_quiz/, async (ctx) => {
 
 bot.action('incorrect', async (ctx) => {
   try {
-    const user = await User.findOne({ userId: ctx.from.id });
+    const user = await User.findOne({ where: { userId: ctx.update.callback_query.from.id } });
     const question = await Questions.findOne({
-      messageId: ctx.update.callback_query.message.message_id,
+      where: {
+        messageId: ctx.update.callback_query.message.message_id,
+      },
     });
     await ctx.editMessageCaption(`❌ Неправильно! ❌\n*Аніме:* ${question.animeTitle}`, {
       parse_mode: 'Markdown',
       ...Markup.inlineKeyboard([Markup.button.url('🎵 Spotify', question.spotifyUrl)]),
     });
     user.wrong += 1;
-
     await question.destroy();
     await user.save();
   } catch (error) {
@@ -119,9 +126,11 @@ bot.action('incorrect', async (ctx) => {
 });
 bot.action('correct', async (ctx) => {
   try {
-    const user = await User.findOne({ userId: ctx.from.id });
+    const user = await User.findOne({ where: { userId: ctx.update.callback_query.from.id } });
     const question = await Questions.findOne({
-      messageId: ctx.update.callback_query.message.message_id,
+      where: {
+        messageId: ctx.update.callback_query.message.message_id,
+      },
     });
     await ctx.editMessageCaption(`✅ Правильно! ✅\n*Аніме:* ${question.animeTitle}`, {
       parse_mode: 'Markdown',
