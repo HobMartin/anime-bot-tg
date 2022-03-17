@@ -18,9 +18,9 @@ bot.command('sync_db', async (ctx) => {
   } catch (error) {
     ctx.telegram.sendMessage(
       process.env.ADMIN_ID,
-      `Error in chat: ${ctx.chat.title ?? ctx.chat.username}. See LOGS: \`\`\`${JSON.stringify(
-        error,
-      )}\`\`\``,
+      `Error in chat: ${
+        ctx.chat.title ?? ctx.chat.username
+      }. Line: 23 See LOGS: \`\`\`${JSON.stringify(error)}\`\`\``,
       { parse_mode: 'Markdown' },
     );
   }
@@ -47,7 +47,7 @@ bot.hears(/\/random_anime/, async (ctx) => {
   });
 });
 
-bot.hears(/\/user_info/, async (ctx) => {
+bot.hears(/\/user_info_test/, async (ctx) => {
   try {
     const user = await User.findOne({
       where: { userId: ctx.update.message.from.id },
@@ -62,7 +62,7 @@ bot.hears(/\/user_info/, async (ctx) => {
   }
 });
 
-bot.hears(/\/song_quiz/, async (ctx) => {
+bot.hears(/\/song_quiz_test/, async (ctx) => {
   try {
     User.findOrCreate({ where: { userId: ctx.update.message.from.id } });
     const {
@@ -83,18 +83,18 @@ bot.hears(/\/song_quiz/, async (ctx) => {
       .catch((error) => {
         ctx.telegram.sendMessage(
           process.env.ADMIN_ID,
-          `Error in chat: ${ctx.chat.title ?? ctx.chat.username}. See LOGS: \`\`\`${JSON.stringify(
-            error,
-          )}\`\`\``,
+          `Error in chat: ${
+            ctx.chat.title ?? ctx.chat.username
+          }. Line: 86. See LOGS: \`\`\`${JSON.stringify(error)}\`\`\``,
           { parse_mode: 'Markdown' },
         );
       });
   } catch (error) {
     ctx.telegram.sendMessage(
       process.env.ADMIN_ID,
-      `Error in chat: ${ctx.chat.title ?? ctx.chat.username}. See LOGS: \`\`\`${JSON.stringify(
-        error,
-      )}\`\`\``,
+      `Error in chat: ${
+        ctx.chat.title ?? ctx.chat.username
+      }. Line: 95 See LOGS: \`\`\`${JSON.stringify(error)}\`\`\``,
       { parse_mode: 'Markdown' },
     );
     ctx.reply('Сталася якась помилка!');
@@ -103,7 +103,9 @@ bot.hears(/\/song_quiz/, async (ctx) => {
 
 bot.action('incorrect', async (ctx) => {
   try {
-    const user = await User.findOrCreate({ where: { userId: ctx.update.callback_query.from.id } });
+    const [user] = await User.findOrCreate({
+      where: { userId: ctx.update.callback_query.from.id },
+    });
     const question = await Questions.findOne({
       where: {
         messageId: ctx.update.callback_query.message.message_id,
@@ -119,16 +121,16 @@ bot.action('incorrect', async (ctx) => {
   } catch (error) {
     ctx.telegram.sendMessage(
       process.env.ADMIN_ID,
-      `Error in chat: ${ctx.chat.title ?? ctx.chat.username}. See LOGS: \`\`\`${JSON.stringify(
-        error,
-      )}\`\`\``,
+      `Error in chat: ${
+        ctx.chat.title ?? ctx.chat.username
+      }. Line: 122 See LOGS: \`\`\`${JSON.stringify(error)}\`\`\``,
       { parse_mode: 'Markdown' },
     );
   }
 });
 bot.action('correct', async (ctx) => {
   try {
-    const user = await User.findOrCreateOne({
+    const [user] = await User.findOrCreateOne({
       where: { userId: ctx.update.callback_query.from.id },
     });
     const question = await Questions.findOne({
@@ -146,9 +148,9 @@ bot.action('correct', async (ctx) => {
   } catch (error) {
     ctx.telegram.sendMessage(
       process.env.ADMIN_ID,
-      `Error in chat: ${ctx.chat.title ?? ctx.chat.username}. See LOGS: \`\`\`${JSON.stringify(
-        error,
-      )}\`\`\``,
+      `Error in chat: ${
+        ctx.chat.title ?? ctx.chat.username
+      }. Line: 149 See LOGS: \`\`\`${JSON.stringify(error)}\`\`\``,
       { parse_mode: 'Markdown' },
     );
   }
