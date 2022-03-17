@@ -65,7 +65,9 @@ bot.hears(/\/user_info/, async (ctx) => {
 bot.hears(/\/song_quiz/, async (ctx) => {
   try {
     User.findOrCreate({ where: { userId: ctx.update.message.from.id } });
-    const { animeTitle, spotifyUrl, songUrl, answers } = await getSongQuiz();
+    const {
+      animeTitle, spotifyUrl, songUrl, answers,
+    } = await getSongQuiz();
     // eslint-disable-next-line no-console
     console.log({ songUrl });
     ctx
@@ -101,7 +103,7 @@ bot.hears(/\/song_quiz/, async (ctx) => {
 
 bot.action('incorrect', async (ctx) => {
   try {
-    const user = await User.findOne({ where: { userId: ctx.update.callback_query.from.id } });
+    const user = await User.findOrCreate({ where: { userId: ctx.update.callback_query.from.id } });
     const question = await Questions.findOne({
       where: {
         messageId: ctx.update.callback_query.message.message_id,
@@ -126,7 +128,9 @@ bot.action('incorrect', async (ctx) => {
 });
 bot.action('correct', async (ctx) => {
   try {
-    const user = await User.findOne({ where: { userId: ctx.update.callback_query.from.id } });
+    const user = await User.findOrCreateOne({
+      where: { userId: ctx.update.callback_query.from.id },
+    });
     const question = await Questions.findOne({
       where: {
         messageId: ctx.update.callback_query.message.message_id,
