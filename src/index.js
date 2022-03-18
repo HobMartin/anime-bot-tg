@@ -20,8 +20,8 @@ bot.command('sync_db', async (ctx) => {
       process.env.ADMIN_ID,
       `Error in chat: ${
         ctx.chat.title ?? ctx.chat.username
-      }. Line: 23 See LOGS: \`\`\`${JSON.stringify(error)}\`\`\``,
-      { parse_mode: 'Markdown' },
+      }. Line: 23 See LOGS: <code>${JSON.stringify(error)}<code>`,
+      { parse_mode: 'HTML' },
     );
   }
 });
@@ -85,8 +85,8 @@ bot.hears(/\/song_quiz/, async (ctx) => {
           process.env.ADMIN_ID,
           `Error in chat: ${
             ctx.chat.title ?? ctx.chat.username
-          }. Line: 86. See LOGS: \`\`\`${JSON.stringify(error)}\`\`\``,
-          { parse_mode: 'Markdown' },
+          }. Line: 86. See LOGS: <code>${JSON.stringify(error)}</code>`,
+          { parse_mode: 'HTML' },
         );
       });
   } catch (error) {
@@ -94,8 +94,8 @@ bot.hears(/\/song_quiz/, async (ctx) => {
       process.env.ADMIN_ID,
       `Error in chat: ${
         ctx.chat.title ?? ctx.chat.username
-      }. Line: 95 See LOGS: \`\`\`${JSON.stringify(error)}\`\`\``,
-      { parse_mode: 'Markdown' },
+      }. Line: 95 See LOGS: <code>${JSON.stringify(error)}</code>`,
+      { parse_mode: 'HTML' },
     );
     ctx.reply('Сталася якась помилка!');
   }
@@ -150,8 +150,8 @@ bot.action('correct', async (ctx) => {
       process.env.ADMIN_ID,
       `Error in chat: ${
         ctx.chat.title ?? ctx.chat.username
-      }. Line: 149 See LOGS: \`\`\`${JSON.stringify(error)}\`\`\``,
-      { parse_mode: 'Markdown' },
+      }. Line: 149 See LOGS: <code>${JSON.stringify(error)}</code>`,
+      { parse_mode: 'HTML' },
     );
   }
 });
