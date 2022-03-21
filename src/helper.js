@@ -31,7 +31,7 @@ function getAnimeAboutMessage(title, genres, description, photo) {
 }
 
 function buildName(from) {
-  const name = `${from.first_name} ${from.last_name}`;
+  const name = `${from.first_name} ${from.last_name ?? ''}`;
   return !name.trim().length ? from.username : name;
 }
 
