@@ -73,6 +73,7 @@ bot.hears(/\/random_anime/, async (ctx) => {
       ],
       { columns: 1 },
     ),
+    reply_to_message_id: ctx.update.message.message_id,
   });
 });
 
@@ -87,6 +88,7 @@ bot.hears(/\/user_info/, async (ctx) => {
       )} (${user?.reputation ?? 0})\n<b>Правильно вгаданих пісень: </b>${
         user?.right ?? 0
       }\n<b>Кількість невгаданих пісень: </b>${user?.wrong ?? 0}`,
+      { reply_to_message_id: ctx.update.message.message_id },
     );
   } catch (error) {
     ctx.replyWithHTML(`<b>Гравець:</b> ${buildName(ctx.from)}\n<b>Ти ще не грав!</b>`);
@@ -101,14 +103,13 @@ bot.hears(/\/song_quiz/, async (ctx) => {
       throw new Error('Немає preview_url');
     }
     User.findOrCreate({ where: { userId: ctx.update.message.from.id } });
-    // eslint-disable-next-line no-console
-    console.log({ songUrl });
     ctx
       .replyWithAudio(songUrl, {
         ...Markup.inlineKeyboard(
           answers.map(([title, isRight]) => Markup.button.callback(title, isRight)),
           { columns: 1 },
         ),
+        reply_to_message_id: ctx.update.message.message_id,
       })
       .then((data) => {
         Questions.create({ messageId: data.message_id, animeTitle, spotifyUrl });
@@ -183,11 +184,12 @@ bot.on('new_chat_members', async (ctx) => {
   try {
     const chat = await Chat.findOne({ where: { chatId: ctx.update.message.chat.id.toString() } });
     if (!chat?.ruleURL) {
-      ctx.replyWithHTML(helloMessage);
+      ctx.replyWithHTML(helloMessage, { reply_to_message_id: ctx.update.message.message_id });
       return;
     }
     ctx.replyWithHTML(
       `${helloMessage}\n\nПропоную тобі ознайомитись з ✍️ <a href="${chat.ruleURL}">правилами</a>`,
+      { reply_to_message_id: ctx.update.message.message_id },
     );
   } catch (error) {
     ctx.telegram.sendMessage(process.env.ADMIN_ID, messageCatchErrorFromCommand(ctx, 190, error), {
@@ -197,7 +199,9 @@ bot.on('new_chat_members', async (ctx) => {
 });
 bot.on('left_chat_member', (ctx) => {
   if (ctx.update.message.from.isBot) return;
-  ctx.reply(`😔 Прощавай, @${ctx.update.message.from.username} !\n\nМи будемо сумувати 😭`);
+  ctx.reply(`😔 Прощавай, @${ctx.update.message.from.username} !\n\nМи будемо сумувати 😭`, {
+    reply_to_message_id: ctx.update.message.message_id,
+  });
 });
 
 bot.hears(/\+/, async (ctx) => {
