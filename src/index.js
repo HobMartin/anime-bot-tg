@@ -12,10 +12,25 @@ const {
   getReputationTitle,
   getPostfix,
 } = require('./helper');
+const { allertMiddlware } = require('./attention');
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
 bot.use(session());
+
+async function sendAllert() {
+  try {
+    const chats = await Chat.findAll();
+    const chatIDs = chats.map((chat) => +chat.getDataValue('chatId'));
+    setInterval(() => {
+      allertMiddlware(bot, chatIDs);
+    }, 20000);
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  }
+}
+sendAllert();
 
 // eslint-disable-next-line consistent-return
 bot.command('sync_db_test', async (ctx) => {
