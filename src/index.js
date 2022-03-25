@@ -22,12 +22,10 @@ async function sendAllert() {
   try {
     const chats = await Chat.findAll();
     const chatIDs = chats.map((chat) => +chat.getDataValue('chatId'));
-    setInterval(() => {
-      allertMiddlware(bot, chatIDs);
-    }, 20000);
+    allertMiddlware(bot, chatIDs);
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error(error);
+    console.error('Send allert Error:', error);
   }
 }
 sendAllert();
