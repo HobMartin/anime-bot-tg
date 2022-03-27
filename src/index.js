@@ -18,17 +18,21 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 
 bot.use(session());
 
-async function sendAllert() {
-  try {
-    const chats = await Chat.findAll();
-    const chatIDs = chats.map((chat) => +chat.getDataValue('chatId'));
-    allertMiddlware(bot, chatIDs);
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Send allert Error:', error);
+// eslint-disable-next-line consistent-return
+bot.command('alert', async (ctx) => {
+  if (ctx.from.id !== +process.env.ADMIN_ID) {
+    return ctx.deleteMessage(ctx.message.message_id);
   }
-}
-sendAllert();
+  try {
+    const chats = await (await Chat.findAll({ attributes: ['chatId'] })).map((chat) => chat.chatId);
+    await ctx.deleteMessage(ctx.message.message_id);
+    await allertMiddlware(bot, chats, !!+ctx.message.text.split(' ')[1]);
+  } catch (error) {
+    ctx.telegram.sendMessage(process.env.ADMIN_ID, messageCatchErrorFromCommand(ctx, 29, error), {
+      parse_mode: 'HTML',
+    });
+  }
+});
 
 // eslint-disable-next-line consistent-return
 bot.command('sync_db_test', async (ctx) => {
