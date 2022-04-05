@@ -90,7 +90,6 @@ bot.hears(/\/random_anime/, async (ctx) => {
       ],
       { columns: 1 },
     ),
-    reply_to_message_id: ctx.update.message.message_id,
   });
 });
 
