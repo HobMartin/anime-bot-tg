@@ -90,7 +90,7 @@ bot.hears(/\/random_anime/, async (ctx) => {
       ],
       { columns: 1 },
     ),
-    reply_to_message_id: ctx.update.message.message_id
+    reply_to_message_id: ctx.update.message.message_id,
   });
 });
 
@@ -105,7 +105,7 @@ bot.hears(/\/user_info/, async (ctx) => {
       )} (${user?.reputation ?? 0})\n<b>Правильно вгаданих пісень: </b>${
         user?.right ?? 0
       }\n<b>Кількість невгаданих пісень: </b>${user?.wrong ?? 0}`,
-      {reply_to_message_id: ctx.update.message.message_id}
+      { reply_to_message_id: ctx.update.message.message_id },
     );
   } catch (error) {
     ctx.replyWithHTML(`<b>Гравець:</b> ${buildName(ctx.from)}\n<b>Ти ще не грав!</b>`);

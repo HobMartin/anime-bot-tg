@@ -15,6 +15,7 @@
   "dependencies": {
     "@mattplays/aniapi": "^2.0.4",
     "axios": "^0.26.1",
+    "deta": "^1.1.0",
     "dotenv": "^16.0.0",
     "node-html-parser": "^5.3.3",
     "pg": "^8.7.3",
