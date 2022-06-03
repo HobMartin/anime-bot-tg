@@ -112,7 +112,7 @@ bot.hears(/\/user_info/, async (ctx) => {
   }
 });
 
-bot.hears(/\/song_quiz/, async (ctx) => {
+bot.hears(/\/!song_quiz/, async (ctx) => {
   try {
     // eslint-disable-next-line object-curly-newline
     const { animeTitle, spotifyUrl, songUrl, answers } = await getSongQuiz();
@@ -141,6 +141,7 @@ bot.hears(/\/song_quiz/, async (ctx) => {
         );
       });
   } catch (error) {
+    console.log(error);
     ctx.telegram.sendMessage(process.env.ADMIN_ID, messageCatchErrorFromCommand(ctx, 123, error), {
       parse_mode: 'HTML',
     });
