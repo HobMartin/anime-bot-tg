@@ -104,7 +104,7 @@ function generateHTML(data) {
   <body>
     <div>
     <h1 class="text title">${data.name}</h1>
-    ${data.rang && `<h2 class="text">🏆 Ранг: <i>${data.rang}</i></h2>`}
+    ${data.rang && `<h2 class="text">Ранг: <i>${data.rang}</i></h2>`}
     </div>
   </body>
 </html>
