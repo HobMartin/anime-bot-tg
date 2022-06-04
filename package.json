@@ -19,6 +19,7 @@
     "dotenv": "^16.0.0",
     "node-html-parser": "^5.3.3",
     "pg": "^8.7.3",
+    "puppeteer": "^14.2.1",
     "sequelize": "^6.17.0",
     "telegraf": "^4.7.0"
   },

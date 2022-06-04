@@ -13,6 +13,7 @@ const {
   getPostfix,
 } = require('./helper');
 const { allertMiddlware } = require('./attention');
+const { generateImage, generateHTML } = require('./utils/userInfoImage');
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
@@ -99,19 +100,53 @@ bot.hears(/\/user_info/, async (ctx) => {
     const user = await User.findOne({
       where: { userId: ctx.update.message.from.id },
     });
-    ctx.replyWithHTML(
-      `<b>Користувач:</b> ${buildName(ctx.from)}\n\n🏆 <b>Ранг:</b> ${getReputationTitle(
-        user?.reputation ?? 0,
-      )} (${user?.reputation ?? 0})\n<b>Правильно вгаданих пісень: </b>${
-        user?.right ?? 0
-      }\n<b>Кількість невгаданих пісень: </b>${user?.wrong ?? 0}`,
-      { reply_to_message_id: ctx.update.message.message_id },
-    );
+    // ctx.replyWithHTML(
+    //   `<b>Користувач:</b> ${buildName(ctx.from)}\n\n🏆 <b>Ранг:</b> ${getReputationTitle(
+    //     user?.reputation ?? 0,
+    //   )} (${user?.reputation ?? 0})\n<b>Правильно вгаданих пісень: </b>${
+    //     user?.right ?? 0
+    //   }\n<b>Кількість невгаданих пісень: </b>${user?.wrong ?? 0}`,
+    //   { reply_to_message_id: ctx.update.message.message_id },
+    // );
+    const data = {
+      name: buildName(ctx.from),
+      rang: `${getReputationTitle(user?.reputation ?? 0)} (${user?.reputation ?? 0})`,
+    };
+    const html = generateHTML(data);
+    const image = await generateImage(html);
+    ctx.replyWithPhoto({ source: image }, { reply_to_message_id: ctx.update.message.message_id });
   } catch (error) {
-    ctx.replyWithHTML(`<b>Гравець:</b> ${buildName(ctx.from)}\n<b>Ти ще не грав!</b>`);
+    // ctx.replyWithHTML(`<b>Гравець:</b> ${buildName(ctx.from)}\n<b>Ти ще не грав!</b>`);
+    const data = {
+      name: buildName(ctx.from),
+    };
+    const html = generateHTML(data);
+    const image = await generateImage(html);
+    ctx.replyWithPhoto({ source: image }, { reply_to_message_id: ctx.update.message.message_id });
   }
 });
+bot.hears('/test_image', async (ctx) => {
+  try {
+    const user = await User.findOne({
+      where: { userId: ctx.update.message.from.id },
+    });
 
+    const data = {
+      name: buildName(ctx.from),
+      rang: `${getReputationTitle(user?.reputation ?? 0)} (${user?.reputation ?? 0})`,
+    };
+    const html = generateHTML(data);
+    const image = await generateImage(html);
+    ctx.replyWithPhoto({ source: image }, { reply_to_message_id: ctx.update.message.message_id });
+  } catch (error) {
+    const data = {
+      name: buildName(ctx.from),
+    };
+    const html = generateHTML(data);
+    const image = await generateImage(html);
+    ctx.replyWithPhoto({ source: image }, { reply_to_message_id: ctx.update.message.message_id });
+  }
+});
 bot.hears(/\/!song_quiz/, async (ctx) => {
   try {
     // eslint-disable-next-line object-curly-newline
@@ -141,7 +176,6 @@ bot.hears(/\/!song_quiz/, async (ctx) => {
         );
       });
   } catch (error) {
-    console.log(error);
     ctx.telegram.sendMessage(process.env.ADMIN_ID, messageCatchErrorFromCommand(ctx, 123, error), {
       parse_mode: 'HTML',
     });
