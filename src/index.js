@@ -232,7 +232,10 @@ bot.action('correct', async (ctx) => {
 
 bot.on('new_chat_members', async (ctx) => {
   if (ctx.update.message.from.isBot) return;
-  const helloMessage = `🎉 Привіт, @${ctx.update.message.from.username} !\nРаді тебе вітати 👋 в нашому ламповому чаті!`;
+  const userMention = `<a href="tg://user?id=${ctx.update.message.from.id}">${buildName(
+    ctx.update.message.from,
+  )}</a>`;
+  const helloMessage = `🎉 Привіт, ${userMention} !\nРаді тебе вітати 👋 в нашому ламповому чаті!`;
   try {
     const chat = await Chat.findOne({ where: { chatId: ctx.update.message.chat.id.toString() } });
     if (!chat?.ruleURL) {
