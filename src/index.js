@@ -14,6 +14,7 @@ const {
 } = require('./helper');
 const { allertMiddlware } = require('./attention');
 const { generateImage, generateHTML } = require('./utils/userInfoImage');
+const { getAlertsMap } = require('./utils/alertsCard');
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
@@ -147,6 +148,12 @@ bot.hears('/test_image', async (ctx) => {
     ctx.replyWithPhoto({ source: image }, { reply_to_message_id: ctx.update.message.message_id });
   }
 });
+
+bot.hears(/\/alerts_map/, async (ctx) => {
+  const mapImage = await getAlertsMap();
+  ctx.replyWithPhoto({ source: mapImage }, { reply_to_message_id: ctx.update.message.message_id });
+});
+
 bot.hears(/\/!song_quiz/, async (ctx) => {
   try {
     // eslint-disable-next-line object-curly-newline
