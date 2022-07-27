@@ -248,12 +248,15 @@ bot.on('new_chat_members', async (ctx) => {
   try {
     const chat = await Chat.findOne({ where: { chatId: ctx.update.message.chat.id.toString() } });
     if (!chat?.ruleURL) {
-      ctx.replyWithHTML(helloMessage, getOptions(ctx));
+      ctx.replyWithHTML(
+        helloMessage,
+        // getOptions(ctx)
+      );
       return;
     }
     ctx.replyWithHTML(
       `${helloMessage}\n\nПропоную тобі ознайомитись з ✍️ <a href="${chat.ruleURL}">правилами</a>`,
-      getOptions(ctx),
+      // getOptions(ctx),
     );
   } catch (error) {
     ctx.telegram.sendMessage(process.env.ADMIN_ID, messageCatchErrorFromCommand(ctx, 190, error), {
