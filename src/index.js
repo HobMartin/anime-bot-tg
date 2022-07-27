@@ -11,6 +11,7 @@ const {
   randomIntFromInterval,
   getReputationTitle,
   getPostfix,
+  getOptions,
 } = require('./helper');
 const { allertMiddlware } = require('./attention');
 const { generateImage, generateHTML } = require('./utils/userInfoImage');
@@ -92,7 +93,7 @@ bot.hears(/\/random_anime/, async (ctx) => {
       ],
       { columns: 1 },
     ),
-    reply_to_message_id: ctx.update.message.message_id,
+    ...getOptions(ctx),
   });
 });
 
@@ -115,7 +116,7 @@ bot.hears(/\/user_info/, async (ctx) => {
     };
     const html = generateHTML(data);
     const image = await generateImage(html);
-    ctx.replyWithPhoto({ source: image }, { reply_to_message_id: ctx.update.message.message_id });
+    ctx.replyWithPhoto({ source: image }, getOptions(ctx));
   } catch (error) {
     // ctx.replyWithHTML(`<b>Гравець:</b> ${buildName(ctx.from)}\n<b>Ти ще не грав!</b>`);
     const data = {
@@ -123,7 +124,7 @@ bot.hears(/\/user_info/, async (ctx) => {
     };
     const html = generateHTML(data);
     const image = await generateImage(html);
-    ctx.replyWithPhoto({ source: image }, { reply_to_message_id: ctx.update.message.message_id });
+    ctx.replyWithPhoto({ source: image }, getOptions(ctx));
   }
 });
 bot.hears('/test_image', async (ctx) => {
@@ -151,7 +152,7 @@ bot.hears('/test_image', async (ctx) => {
 
 bot.hears(/\/alerts_map/, async (ctx) => {
   const mapImage = await getAlertsMap();
-  ctx.replyWithPhoto({ source: mapImage }, { reply_to_message_id: ctx.update.message.message_id });
+  ctx.replyWithPhoto({ source: mapImage }, getOptions(ctx));
 });
 
 bot.hears(/\/!song_quiz/, async (ctx) => {
@@ -243,15 +244,16 @@ bot.on('new_chat_members', async (ctx) => {
     ctx.update.message.from,
   )}</a>`;
   const helloMessage = `🎉 Привіт, ${userMention} !\nРаді тебе вітати 👋 в нашому ламповому чаті!`;
+
   try {
     const chat = await Chat.findOne({ where: { chatId: ctx.update.message.chat.id.toString() } });
     if (!chat?.ruleURL) {
-      ctx.replyWithHTML(helloMessage, { reply_to_message_id: ctx.update.message.message_id });
+      ctx.replyWithHTML(helloMessage, getOptions(ctx));
       return;
     }
     ctx.replyWithHTML(
       `${helloMessage}\n\nПропоную тобі ознайомитись з ✍️ <a href="${chat.ruleURL}">правилами</a>`,
-      { reply_to_message_id: ctx.update.message.message_id },
+      getOptions(ctx),
     );
   } catch (error) {
     ctx.telegram.sendMessage(process.env.ADMIN_ID, messageCatchErrorFromCommand(ctx, 190, error), {
@@ -261,9 +263,10 @@ bot.on('new_chat_members', async (ctx) => {
 });
 bot.on('left_chat_member', (ctx) => {
   if (ctx.update.message.from.isBot) return;
-  ctx.reply(`😔 Прощавай, @${ctx.update.message.from.username} !\n\nМи будемо сумувати 😭`, {
-    reply_to_message_id: ctx.update.message.message_id,
-  });
+  ctx.reply(
+    `😔 Прощавай, @${ctx.update.message.from.username} !\n\nМи будемо сумувати 😭`,
+    getOptions(ctx),
+  );
 });
 
 bot.hears(/\+/, async (ctx) => {

@@ -61,6 +61,14 @@ function getPostfix(rep) {
   return `${rep} балів`;
 }
 
+function getOptions(ctx) {
+  const options = {};
+  if (ctx.update?.message?.message_id) {
+    options.reply_to_message_id = ctx.update.message.message_id;
+  }
+  return options;
+}
+
 module.exports = {
   getAnimeTitle,
   shuffle,
@@ -71,4 +79,5 @@ module.exports = {
   randomIntFromInterval,
   getReputationTitle,
   getPostfix,
+  getOptions,
 };
