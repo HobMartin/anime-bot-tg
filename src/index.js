@@ -313,14 +313,23 @@ bot.on("new_chat_members", async (ctx) => {
     const chat = await Chat.findOne({
       where: { chatId: ctx.update.message.chat.id.toString() },
     });
+    const member = await ctx.telegram.getChatMember(
+      ctx.message.chat.id,
+      ctx.message.from.id
+    );
     if (!chat?.ruleURL) {
       // ctx.replyWithHTML(
       //   helloMessage,
       //   getOptions(ctx)
       // );
-      ctx.reply(
-        "Цей бот створено для аніме чату Мірай https://t.me/+o8EiUWiA_kwwMTc6"
-      );
+      if (
+        member &&
+        (member.status === "creator" || member.status === "administrator")
+      ) {
+        ctx.reply(
+          "Цей бот створено для аніме чату Мірай https://t.me/+o8EiUWiA_kwwMTc6"
+        );
+      }
       return;
     }
     ctx.replyWithHTML(
