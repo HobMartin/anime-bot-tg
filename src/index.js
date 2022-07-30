@@ -7,7 +7,6 @@ const Admins = require('./features/admins');
 const Chat = require('./features/chat');
 const Alert = require('./features/alert');
 
-const loading = require('./middlewares/loading');
 const miraiChatOnly = require('./middlewares/miraiChatOnly');
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
@@ -17,7 +16,6 @@ bot.use(session());
 bot.start(start);
 
 bot.use(miraiChatOnly);
-bot.use(loading);
 bot.use(Anime);
 bot.use(Admins);
 bot.use(Chat);
