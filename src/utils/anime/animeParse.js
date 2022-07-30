@@ -1,6 +1,6 @@
 const axios = require('axios');
 const { parse } = require('node-html-parser');
-const { getContentFromMeta } = require('./helper');
+const { getContentFromMeta } = require('../helper');
 
 const BASE_URL = 'https://animego.online';
 

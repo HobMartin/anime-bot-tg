@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
-const { getRandomImage } = require('./randomBgImage');
+const _ = require('lodash');
+const { IMAGE_SET } = require('../../constants');
 
 const testHTML = `
 <html>
@@ -18,7 +19,8 @@ const testHTML = `
 
       html,
       body {
-        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${getRandomImage()});
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
+          ${_.sample(IMAGE_SET)});
         background-size: cover;
         background-position: center center;
         width: 1200px;
@@ -70,7 +72,9 @@ function generateHTML(data) {
 
       html,
       body {
-        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${getRandomImage()});
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
+          ${_.sample(IMAGE_SET)}
+        );
         background-size: cover;
         background-position: center center;
         width: 1200px;

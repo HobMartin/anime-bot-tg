@@ -1,5 +1,5 @@
-function allertMessage(allert) {
-  if (allert) {
+function alertMessage(alert) {
+  if (alert) {
     return '🚨 <b>Повітряна тривога!</b>\nТерміново всі в укриття!';
   }
   return '✅ <b>Відбій повітряної тривоги!</b>\nПовертайтесь до нормального життя!';
@@ -7,16 +7,16 @@ function allertMessage(allert) {
 
 const messages = [];
 
-async function allertMiddlware(ctx, chatIDs, sendAllert) {
+async function alertMiddleware(ctx, chatIDs, sendAlert) {
   chatIDs.forEach((chatId) => {
     ctx.telegram
-      .sendMessage(chatId, allertMessage(sendAllert), {
+      .sendMessage(chatId, alertMessage(sendAlert), {
         parse_mode: 'HTML',
       })
       .then((m) => {
         ctx.telegram.pinChatMessage(chatId, m.message_id);
         messages.push(m.message_id);
-        if (!sendAllert) {
+        if (!sendAlert) {
           setTimeout(() => {
             messages.forEach((message) => {
               ctx.telegram.unpinChatMessage(chatId, message);
@@ -27,4 +27,4 @@ async function allertMiddlware(ctx, chatIDs, sendAllert) {
   });
 }
 
-module.exports = { allertMiddlware };
+module.exports = { alertMiddleware };

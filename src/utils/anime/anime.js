@@ -1,6 +1,6 @@
 require('dotenv').config();
 const { API } = require('@mattplays/aniapi');
-const { getAnimeTitle, shuffle } = require('./helper');
+const { getAnimeTitle, shuffle } = require('../helper');
 
 const AnimeApi = new API(process.env.ANI_API_KEY);
 
