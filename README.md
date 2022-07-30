@@ -1,9 +1,10 @@
-<header>
-<h1>Міко-чан</h1>
-[![Мірай чат Чернівці](https://img.shields.io/badge/English%20chat-grey?style=flat-square&logo=telegram)](https://t.me/+o8EiUWiA_kwwMTc6)
-</header>
+
+# Міко-чан
+[ ![Мірай чат Чернівці](https://img.shields.io/badge/Мірай%20чат%20%7C%20Чернівці-grey?style=flat-square&logo=telegram)](https://t.me/+o8EiUWiA_kwwMTc6)
 
 Телеграм бот для чату Мірай
+
+![⁠](https://media.giphy.com/media/anDhBXwgvIa7m/giphy.gif)
 
 # Usage
 
