@@ -1,6 +1,7 @@
 require('dotenv').config();
 const { Telegraf, session } = require('telegraf');
 const start = require('./common/start');
+const alert = require('./common/alert');
 
 const Anime = require('./features/anime');
 const Admins = require('./features/admins');
@@ -14,8 +15,10 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 bot.use(session());
 
 bot.start(start);
+bot.command('alert', alert);
 
 bot.use(miraiChatOnly);
+
 bot.use(Anime);
 bot.use(Admins);
 bot.use(Chat);

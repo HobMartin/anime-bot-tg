@@ -15,7 +15,6 @@
   "dependencies": {
     "@mattplays/aniapi": "^2.0.4",
     "axios": "^0.26.1",
-    "deta": "^1.1.0",
     "dotenv": "^16.0.0",
     "lodash": "^4.17.21",
     "node-html-parser": "^5.3.3",
@@ -29,5 +28,37 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.4",
     "nodemon": "^2.0.15"
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "commonjs": true,
+      "es2021": true
+    },
+    "extends": [
+      "airbnb-base"
+    ],
+    "parserOptions": {
+      "ecmaVersion": "latest"
+    },
+    "rules": {
+      "consistent-return": "off"
+    }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "all",
+    "printWidth": 100,
+    "proseWrap": "never",
+    "arrowParens": "always",
+    "implicitArrowLinebreak": "beside",
+    "overrides": [
+      {
+        "files": ".prettierrc",
+        "options": {
+          "parser": "json"
+        }
+      }
+    ]
   }
 }
