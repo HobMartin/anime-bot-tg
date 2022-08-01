@@ -7,6 +7,7 @@ const Anime = require('./features/anime');
 const Admins = require('./features/admins');
 const Chat = require('./features/chat');
 const Alert = require('./features/alert');
+const Joke = require('./features/jokes');
 
 const miraiChatOnly = require('./middlewares/miraiChatOnly');
 
@@ -23,6 +24,7 @@ bot.use(Anime);
 bot.use(Admins);
 bot.use(Chat);
 bot.use(Alert);
+bot.use(Joke);
 
 // eslint-disable-next-line no-console
 bot.catch((err) => console.log(err.message, err));

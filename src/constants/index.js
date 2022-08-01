@@ -9,6 +9,20 @@ const ANIME_GIFS = [
   'https://media.giphy.com/media/NlpnSfpBdjwxG/giphy.gif',
 ];
 
+const ANIME_JOKES_GIF = [
+  'https://media.giphy.com/media/v60KQg3MXLwTS/giphy.gif',
+  'https://media.giphy.com/media/pa1WaYStUKyLC/giphy.gif',
+  'https://media.giphy.com/media/TORQpT78yQR5S/giphy.gif',
+  'https://media.giphy.com/media/AngzmmMj4h6zm/giphy.gif',
+  'https://media.giphy.com/media/12oOQ7b2ftlzpu/giphy.gif',
+  'https://media.giphy.com/media/B1JKtacZXunqU/giphy.gif',
+  'https://media.giphy.com/media/VvvVOKJIogh44/giphy.gif',
+  'https://media.giphy.com/media/2RFqpNVScIWE8/giphy.gif',
+  'https://media.giphy.com/media/Yb0sZcOCQdG36/giphy.gif',
+  'https://media.giphy.com/media/kXY0CA4v8mKXe/giphy.gif',
+  'https://media.giphy.com/media/26Ff4P2zcsiIi6fQY/giphy.gif',
+];
+
 const IMAGE_SET = [
   'https://img.freepik.com/free-vector/asian-night-bedroom-chinese-japanese-room_33099-1854.jpg?t=st=1654366766~exp=1654367366~hmac=c56653b75a78e9a48aaefc397f75252f70459fdc9244bc38fc40207d6ed9a925&w=826',
   'https://img.freepik.com/free-vector/modern-japanese-street-with-buildings_52683-46019.jpg?t=st=1654366766~exp=1654367366~hmac=e11729ed4fd45dcc7c6736a5f8ce0255db911745498cc1bcd37bf6114d44064c&w=740',
@@ -17,4 +31,4 @@ const IMAGE_SET = [
   'https://img.freepik.com/free-vector/gradient-japanese-temple-illustration_52683-46008.jpg?t=st=1654366868~exp=1654367468~hmac=b4820cd20a84a535e3374c7cfb0f0e56474601dcb4a8047f24273c06eec3c4a9&w=826',
 ];
 
-module.exports = { ANIME_GIFS, IMAGE_SET };
+module.exports = { ANIME_GIFS, IMAGE_SET, ANIME_JOKES_GIF };
