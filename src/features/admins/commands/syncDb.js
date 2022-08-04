@@ -1,5 +1,5 @@
-const sequelize = require('../db/init');
-const { messageCatchErrorFromCommand } = require('../utils/helper');
+const sequelize = require('../../../db/init');
+const { messageCatchErrorFromCommand } = require('../../../utils/helper');
 
 module.exports = async (ctx) => {
   if (ctx.from.id !== +process.env.ADMIN_ID) {

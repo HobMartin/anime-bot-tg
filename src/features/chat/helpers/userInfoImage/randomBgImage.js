@@ -1,4 +1,4 @@
-const { IMAGE_SET } = require('../../constants');
+const { IMAGE_SET } = require('../../../../constants');
 
 const getRandomImage = () => {
   const randomIndex = Math.floor(Math.random() * IMAGE_SET.length);

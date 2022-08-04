@@ -1,10 +1,6 @@
-const { User } = require('../db/models');
-const {
-  buildName,
-  messageCatchErrorFromCommand,
-  randomIntFromInterval,
-  getPostfix,
-} = require('../utils/helper');
+const { User } = require('../../../db/models');
+const { buildName, messageCatchErrorFromCommand } = require('../../../utils/helper');
+const { randomIntFromInterval, getPostfix } = require('../helpers/reputation');
 
 module.exports = async (ctx) => {
   const { from, reply_to_message: reply } = ctx.update.message;

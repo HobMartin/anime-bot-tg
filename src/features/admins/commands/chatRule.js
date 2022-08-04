@@ -1,6 +1,6 @@
-const { Chat } = require('../db/models');
+const { Chat } = require('../../../db/models');
 
-const { messageCatchErrorFromCommand } = require('../utils/helper');
+const { messageCatchErrorFromCommand } = require('../../../utils/helper');
 
 module.exports = async (ctx) => {
   if (ctx.from.id !== +process.env.ADMIN_ID) {

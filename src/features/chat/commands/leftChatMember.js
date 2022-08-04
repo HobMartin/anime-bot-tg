@@ -1,4 +1,4 @@
-const { getOptions, buildName } = require('../utils/helper');
+const { getOptions, buildName } = require('../../../utils/helper');
 
 module.exports = (ctx) => {
   if (ctx.update.message.from.isBot) return;

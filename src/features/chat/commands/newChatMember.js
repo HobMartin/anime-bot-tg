@@ -1,5 +1,5 @@
-const { Chat } = require('../db/models');
-const { buildName, messageCatchErrorFromCommand, getOptions } = require('../utils/helper');
+const { Chat } = require('../../../db/models');
+const { buildName, messageCatchErrorFromCommand, getOptions } = require('../../../utils/helper');
 
 module.exports = async (ctx) => {
   if (ctx.update.message.from.isBot) return;
