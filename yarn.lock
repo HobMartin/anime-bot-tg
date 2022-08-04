@@ -31,13 +31,6 @@
   resolved "https://registry.npmjs.org/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@mattplays/aniapi@^2.0.4":
-  version "2.0.4"
-  resolved "https://registry.npmjs.org/@mattplays/aniapi/-/aniapi-2.0.4.tgz"
-  integrity sha512-2IoQTez7RVklaKjW9zzpiRb3VY/pfACo0/ShOIFGOFsEEdZ48+RzXWebTwLQgQvuq1MlxCA2AUXJkmb6OlWo0g==
-  dependencies:
-    undici "^4.14.1"
-
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"
   resolved "https://registry.npmjs.org/@sindresorhus/is/-/is-0.14.0.tgz"
@@ -2141,11 +2134,6 @@ undefsafe@^2.0.5:
   version "2.0.5"
   resolved "https://registry.npmjs.org/undefsafe/-/undefsafe-2.0.5.tgz"
   integrity sha512-WxONCrssBM8TSPRqN5EmsjVrsv4A8X12J4ArBiiayv3DyyG3ZlIg6yysuuSYdZsVz3TKcTg2fd//Ujd4CHV1iA==
-
-undici@^4.14.1:
-  version "4.15.1"
-  resolved "https://registry.npmjs.org/undici/-/undici-4.15.1.tgz"
-  integrity sha512-h8LJybhMKD09IyQZoQadNtIR/GmugVhTOVREunJrpV6RStriKBFdSVoFzEzTihwXi/27DIBO+Z0OGF+Mzfi0lA==
 
 unique-string@^2.0.0:
   version "2.0.0"

@@ -1,7 +1,8 @@
 const { Markup } = require('telegraf');
 
-const { getRandom } = require('../utils/anime/animeParse');
-const { getAnimeAboutMessage, getOptions } = require('../utils/helper');
+const { getRandom } = require('./animeParser/animeParse');
+const { getAnimeAboutMessage } = require('./helper');
+const { getOptions } = require('../../utils/helper');
 
 module.exports = async (ctx) => {
   const data = await getRandom();

@@ -1,6 +1,7 @@
-const { User } = require('../db/models');
-const { buildName, getReputationTitle, getOptions } = require('../utils/helper');
-const { generateImage, generateHTML } = require('../utils/userInfoImage');
+const { User } = require('../../../db/models');
+const { buildName, getOptions } = require('../../../utils/helper');
+const { generateImage, generateHTML } = require('../helpers/userInfoImage');
+const { getReputationTitle } = require('../helpers/reputation');
 
 module.exports = async (ctx) => {
   try {

@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer');
 const _ = require('lodash');
-const { IMAGE_SET } = require('../../constants');
+const { IMAGE_SET } = require('../../../../constants');
 
 const testHTML = `
 <html>
